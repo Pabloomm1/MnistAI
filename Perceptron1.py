@@ -3,14 +3,15 @@ bias = 600
 weights = np.zeros(28 * 28)
 def enc_weights(arr: list):
     for i in range(28 * 28):
-        weights[i] += arr[i]
+        weights[i] += 1 if arr[i] else 0
 def dec_weights(arr:list):
     for i in range(28 * 28):
-        weights[i] -= arr[i]
+        weights[i] -= 1 if arr[i] else 0
 def classified(arr: list) -> bool:
     rez = 0
     for i in range(28 * 28):
-        rez += arr[i] * weights[i]
+        if arr[i]:
+            rez += weights[i]
     return rez >= bias
 def train(positive: bool, arr: list ):
     r = classified(arr)
